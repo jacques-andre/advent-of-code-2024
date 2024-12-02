@@ -12,7 +12,7 @@ import (
 var FILE string = "./data/input.txt"
 
 func main() {
-	part1()
+	part2()
 }
 
 func part1() {
@@ -23,6 +23,36 @@ func part1() {
 	count := 0
 	for _, level := range levels {
 		safe := isLevelSafe(level)
+		if safe {
+			count++
+		}
+		log.Printf("safe: %+v, level: %+v", safe, level)
+	}
+	log.Printf("count: %d", count)
+}
+
+func part2() {
+	levels, err := getLevels()
+	if err != nil {
+		log.Fatalf("error getting lists %s", err)
+	}
+	count := 0
+	// brute force bad solution, take one item from unsafe array until it is 'safe'
+	for _, level := range levels {
+		originalLevel := make([]int, len(level))
+		copy(originalLevel, level)
+		safe := isLevelSafe(originalLevel)
+		if !safe {
+			for i := 0; i < len(level); i++ {
+				levelCopy := make([]int, len(level))
+				copy(levelCopy, level)
+				levelCopy = append(levelCopy[:i], levelCopy[i+1:]...)
+				safe = isLevelSafe(levelCopy)
+				if safe {
+					break
+				}
+			}
+		}
 		if safe {
 			count++
 		}
