@@ -63,21 +63,17 @@ func part2() {
 }
 
 func isLevelSafe(level []int) bool {
-	levelCpy := make([]int, len(level))
-	copy(levelCpy, level)
 	isInc := false
 	isDec := false
-	for i := 0; i < len(levelCpy)-1; i++ {
-		currentFloor := levelCpy[i]
-		floorNext := levelCpy[i+1]
+	for i := 0; i < len(level)-1; i++ {
+		currentFloor := level[i]
+		floorNext := level[i+1]
 		diff := math.Abs(float64(currentFloor - floorNext))
-
 		if floorNext-currentFloor > 0 {
 			isInc = true
 		} else {
 			isDec = true
 		}
-
 		// if we are doing action, check it is correct
 		if isInc && currentFloor > floorNext {
 			return false
