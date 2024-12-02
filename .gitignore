@@ -5,7 +5,7 @@ main
 *.so
 *.dylib
 *.test
-*.out
+*out*
 go.work
 go.work.sum
 .env
