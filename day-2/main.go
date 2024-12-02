@@ -46,6 +46,7 @@ func part2() {
 			for i := 0; i < len(level); i++ {
 				levelCopy := make([]int, len(level))
 				copy(levelCopy, level)
+				// remove i from safe check
 				levelCopy = append(levelCopy[:i], levelCopy[i+1:]...)
 				safe = isLevelSafe(levelCopy)
 				if safe {
